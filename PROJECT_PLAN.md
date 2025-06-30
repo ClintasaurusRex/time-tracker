@@ -3,8 +3,9 @@
 ## Table of Contents
 
 1. [Project Overview](#project-overview)
-2. [User Stories](#user-stories)
-3. [Phases & Milestones](#phases--milestones)
+2. [Features](#features)
+3. [User Stories](#user-stories)
+4. [Phases & Milestones](#phases--milestones)
    - [Phase 1: Planning & Setup](#phase-1-planning--setup)
    - [Phase 2: Data Structure & State](#phase-2-data-structure--state)
    - [Phase 3: UI Components](#phase-3-ui-components)
@@ -14,13 +15,33 @@
    - [Phase 7: Tailwind Styling](#phase-7-tailwind-styling)
    - [Phase 8: Extra Features (Optional)](#phase-8-extra-features-optional)
    - [Phase 9: Testing & Polish](#phase-9-testing--polish)
-4. [Summary of Deliverables](#summary-of-deliverables)
+5. [Summary of Deliverables](#summary-of-deliverables)
 
 ---
 
 ## Project Overview
 
 A simple, modern time tracking application built with React and Tailwind CSS. Users can log hours spent on tasks, view summaries by day/week/month/year, and manage their time entries with a clean, responsive UI.
+
+---
+
+## Features
+
+- **Dashboard:** Overview of recent activity, quick stats, and shortcuts to common actions.
+- **Daily Logs:** View and manage all time entries for a specific day.
+- **Weekly Summary:** Summarized view of hours/tasks for each week.
+- **Bi-Weekly Summary:** Two-week period overview for tracking longer cycles.
+- **Monthly Summary:** Calendar/grid view of hours and tasks for each month.
+- **Yearly Summary:** High-level overview of hours per month for the year.
+- **Custom Range Reports:** Select any date range for a custom summary.
+- **Search & Filter:** Find entries by task, date, or keyword.
+- **Export Data:** Download entries as JSON or CSV.
+- **Print-Friendly View:** Optimized layout for printing reports.
+- **Responsive Navigation Bar:** Easily switch between all views and summaries.
+- **Quick Add Entry:** Fast entry from any page.
+- **Settings (Optional):** Configure preferences, themes, or data export options.
+- **User Authentication (Optional):** Secure login for personal data.
+- \*\*Link to google calendar
 
 ---
 
