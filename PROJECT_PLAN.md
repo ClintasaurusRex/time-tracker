@@ -41,7 +41,7 @@ A simple, modern time tracking application built with React and Tailwind CSS. Us
 - **Quick Add Entry:** Fast entry from any page.
 - **Settings (Optional):** Configure preferences, themes, or data export options.
 - **User Authentication (Optional):** Secure login for personal data.
-- \*\*Link to google calendar
+- **Link** to google calendar
 
 ---
 
