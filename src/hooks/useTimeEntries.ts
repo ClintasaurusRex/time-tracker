@@ -3,19 +3,30 @@ import type { TimeEntry } from "../types";
 
 export const useTimeEntries = () => {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
+  const [isLoaded, setIsLoaded] = useState(false);
 
   // Load entries from localStorage on component mount
   useEffect(() => {
+    console.log("Loading entries from localStorage...");
     const savedEntries = localStorage.getItem("timeEntries");
+    console.log("Raw localStorage data:", savedEntries);
     if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
+      const parsedEntries = JSON.parse(savedEntries);
+      console.log("Parsed entries:", parsedEntries);
+      setEntries(parsedEntries);
     }
+    setIsLoaded(true);
+    console.log("Initial load complete");
   }, []);
 
-  // Save entries to localStorage whenever entries change
+  // Save entries to localStorage whenever entries change (but only after initial load)
   useEffect(() => {
-    localStorage.setItem("timeEntries", JSON.stringify(entries));
-  }, [entries]);
+    console.log("Entries changed, isLoaded:", isLoaded, "entries.length:", entries.length);
+    if (isLoaded) {
+      console.log("Saving entries to localStorage:", entries);
+      localStorage.setItem("timeEntries", JSON.stringify(entries));
+    }
+  }, [entries, isLoaded]);
 
   const addEntry = (entry: TimeEntry) => {
     setEntries((prev) => [...prev, entry]);

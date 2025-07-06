@@ -27,8 +27,15 @@ function Dashboard() {
 
   // Load mock data if no entries exist
   useEffect(() => {
+    // Only load mock data if we have no entries at all
     if (entries.length === 0) {
-      mockTimeEntries.forEach((entry) => addEntry(entry));
+      // Add a small delay to ensure the hook has loaded from localStorage first
+      const timer = setTimeout(() => {
+        if (entries.length === 0) {
+          mockTimeEntries.forEach((entry) => addEntry(entry));
+        }
+      }, 100);
+      return () => clearTimeout(timer);
     }
   }, [entries.length, addEntry]);
 
