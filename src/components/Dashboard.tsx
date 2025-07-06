@@ -193,7 +193,7 @@ function Dashboard() {
     <div className="dashboard-container">
       {/* Vertical Navigation Bar */}
       <ul className="navbar">
-        <img src="https://via.placeholder.com/100x100" alt="Placeholder" className="nav-pic" />
+        <img src="/logoEmblem.png" alt="Placeholder" className="nav-pic" />
         <button
           onClick={() => handleViewChange("dashboard")}
           className={`nav-btns ${viewMode === "dashboard" ? "active" : ""}`}
