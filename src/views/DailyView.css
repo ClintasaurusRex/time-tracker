@@ -1,0 +1,48 @@
+.daily-view {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100%;
+}
+
+.daily-actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 20px;
+}
+
+.add-entry-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.add-entry-btn:hover {
+  background-color: #218838;
+}
+
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 600px) {
+  .daily-view {
+    padding: 16px;
+  }
+  
+  .daily-actions {
+    justify-content: center;
+  }
+  
+  .add-entry-btn {
+    width: 100%;
+    max-width: 200px;
+  }
+}

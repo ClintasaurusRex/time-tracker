@@ -1,0 +1,130 @@
+.custom-range-view {
+  padding: 20px;
+  background-color: #f8f9fa;
+  min-height: 100%;
+}
+
+.date-range-controls {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.date-inputs {
+  display: flex;
+  gap: 20px;
+  margin-bottom: 16px;
+}
+
+.date-input-group {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.date-input-group label {
+  font-weight: 600;
+  margin-bottom: 4px;
+  color: #333;
+}
+
+.date-input-group input {
+  padding: 8px 12px;
+  border: 1px solid #ddd;
+  border-radius: 4px;
+  font-size: 14px;
+  transition: border-color 0.2s;
+}
+
+.date-input-group input:focus {
+  outline: none;
+  border-color: #4a90e2;
+  box-shadow: 0 0 0 2px rgba(74, 144, 226, 0.2);
+}
+
+.range-actions {
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.add-entry-btn {
+  padding: 10px 20px;
+  background-color: #28a745;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.add-entry-btn:hover {
+  background-color: #218838;
+}
+
+.export-btn {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+}
+
+.export-btn:hover:not(:disabled) {
+  background-color: #0056b3;
+}
+
+.export-btn:disabled {
+  background-color: #6c757d;
+  cursor: not-allowed;
+}
+
+.entries-section {
+  background: white;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.05);
+}
+
+.entries-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+@media (max-width: 768px) {
+  .custom-range-view {
+    padding: 16px;
+  }
+  
+  .date-range-controls {
+    padding: 16px;
+  }
+  
+  .date-inputs {
+    flex-direction: column;
+    gap: 16px;
+  }
+  
+  .range-actions {
+    flex-direction: column;
+    gap: 8px;
+  }
+  
+  .add-entry-btn,
+  .export-btn {
+    width: 100%;
+  }
+  
+  .entries-section {
+    padding: 16px;
+  }
+}
