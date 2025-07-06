@@ -2,7 +2,9 @@
   display: flex;
   flex-direction: row;
   height: 100vh;
-  /* border: 3px solid black; */
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    sans-serif;
 }
 
 .nav-btns,
@@ -10,22 +12,24 @@ button {
   background-color: #d3d3d3;
   border: none;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   padding: 10px;
-  transition: background-color 0.2s;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen, Ubuntu, Cantarell,
+    sans-serif;
 }
 
 .nav-btns.active {
-  background-color: #4a90e2;
+  background: rgba(255, 255, 255, 0.25);
   color: white;
 }
 
 .nav-btns:hover {
-  background-color: #b8b8b8;
+  background: rgba(255, 255, 255, 0.2);
 }
 
 .nav-btns.active:hover {
-  background-color: #357abd;
+  background: rgba(255, 255, 255, 0.3);
 }
 
 .main-content {
@@ -40,28 +44,53 @@ button {
   justify-content: center;
   align-items: center;
   min-height: 80px;
-  background-color: #9b9897;
-  color: rgb(7, 1, 1);
+  background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+  color: #2d3748;
   padding: 20px;
   font-size: 24px;
-  /* border: 3px solid black; */
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.header::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.5), transparent);
 }
 
 .header h1 {
   margin: 0;
   font-size: 24px;
+  font-weight: 600;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  text-align: center;
 }
 
 .view-container {
   flex: 1;
   overflow-y: auto;
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
+  border-radius: 20px 0 0 0;
+  margin-left: -20px;
+  padding-left: 20px;
+  box-shadow: inset 0 0 20px rgba(0, 0, 0, 0.05);
 }
 
 .navigation-wrapper {
-  background-color: #f8f9fa;
+  background: linear-gradient(135deg, #f8fafc 0%, #e2e8f0 100%);
   padding: 0 20px;
   padding-top: 20px;
+  border-radius: 20px 20px 0 0;
+  margin-top: -20px;
+  padding-top: 40px;
 }
 
 .navbar {
@@ -69,29 +98,133 @@ button {
   margin: 0;
   height: 100vh;
   flex-direction: column;
-  padding: 10px;
-  background-color: #a8a8a8;
+  padding: 20px;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
   list-style-type: none;
-  gap: 20px;
+  gap: 12px;
   width: 14vw;
-  min-width: 200px;
+  min-width: 240px;
+  box-shadow: 2px 0 10px rgba(0, 0, 0, 0.1);
+  backdrop-filter: blur(10px);
+  animation: slideInLeft 0.5s ease-out;
+}
+
+@keyframes slideInLeft {
+  from {
+    transform: translateX(-100%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
 }
 
 .nav-btns {
   display: flex;
-  border: 2px solid black;
+  border: none;
   justify-content: center;
-  padding: 9px;
-  border-radius: 4px;
-  font-weight: 500;
+  align-items: center;
+  padding: 16px 20px;
+  border-radius: 12px;
+  font-weight: 600;
+  background: rgba(255, 255, 255, 0.1);
+  color: white;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+  animation: fadeInUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.nav-btns:nth-child(1) {
+  animation-delay: 0.1s;
+}
+.nav-btns:nth-child(2) {
+  animation-delay: 0.2s;
+}
+.nav-btns:nth-child(3) {
+  animation-delay: 0.3s;
+}
+.nav-btns:nth-child(4) {
+  animation-delay: 0.4s;
+}
+.nav-btns:nth-child(5) {
+  animation-delay: 0.5s;
+}
+.nav-btns:nth-child(6) {
+  animation-delay: 0.6s;
+}
+.nav-btns:nth-child(7) {
+  animation-delay: 0.7s;
+}
+.nav-btns:nth-child(8) {
+  animation-delay: 0.8s;
+}
+.nav-btns:nth-child(9) {
+  animation-delay: 0.9s;
+}
+
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.nav-btns::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -100%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+  transition: left 0.5s;
+}
+
+.nav-btns:hover::before {
+  left: 100%;
+}
+
+.nav-btns:hover {
+  background: rgba(255, 255, 255, 0.2);
+  transform: translateX(8px);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.15);
+}
+
+.nav-btns.active {
+  background: rgba(255, 255, 255, 0.25);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transform: translateX(8px);
+  border-left: 4px solid #ffffff;
+}
+
+.nav-btns.active:hover {
+  background: rgba(255, 255, 255, 0.3);
+  transform: translateX(12px);
 }
 
 .nav-pic {
-  height: 9%;
-  width: 28%;
+  height: 80px;
+  width: 80px;
   align-self: center;
-  /* border: 2px solid black; */
-  border-radius: 4px;
+  border-radius: 50%;
+  border: 3px solid rgba(255, 255, 255, 0.3);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+  margin-bottom: 20px;
+}
+
+.nav-pic:hover {
+  transform: scale(1.05);
+  box-shadow: 0 12px 40px rgba(0, 0, 0, 0.3);
+  border-color: rgba(255, 255, 255, 0.5);
 }
 
 .navbar-spacer {
@@ -107,9 +240,12 @@ button {
     flex-direction: row;
     width: 100%;
     height: auto;
-    padding: 8px;
+    padding: 12px;
     gap: 8px;
     overflow-x: auto;
+    background: linear-gradient(90deg, #667eea 0%, #764ba2 100%);
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    min-width: unset;
   }
 
   .navbar-spacer {
@@ -123,8 +259,24 @@ button {
   .nav-btns {
     white-space: nowrap;
     font-size: 14px;
-    padding: 8px 12px;
-    min-width: 80px;
+    padding: 12px 16px;
+    min-width: 100px;
+    border-radius: 8px;
+    transform: none;
+  }
+
+  .nav-btns:hover {
+    transform: translateY(-2px);
+  }
+
+  .nav-btns.active {
+    transform: translateY(-2px);
+    border-left: none;
+    border-bottom: 3px solid #ffffff;
+  }
+
+  .nav-btns.active:hover {
+    transform: translateY(-3px);
   }
 
   .header {
