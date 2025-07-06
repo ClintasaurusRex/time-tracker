@@ -105,11 +105,11 @@
     width: 95%;
     padding: 16px;
   }
-  
+
   .form-actions {
     flex-direction: column;
   }
-  
+
   .btn {
     width: 100%;
   }

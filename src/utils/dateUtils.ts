@@ -1,11 +1,11 @@
-import type { TimeEntry } from '../types';
+import type { TimeEntry } from "../types";
 
 export const formatDate = (date: Date): string => {
-  return date.toISOString().split('T')[0];
+  return date.toISOString().split("T")[0];
 };
 
 export const parseDate = (dateString: string): Date => {
-  return new Date(dateString + 'T00:00:00');
+  return new Date(dateString + "T00:00:00");
 };
 
 export const getStartOfWeek = (date: Date): Date => {
@@ -60,11 +60,15 @@ export const addYears = (date: Date, years: number): Date => {
   return result;
 };
 
-export const filterEntriesByDate = (entries: TimeEntry[], startDate: Date, endDate: Date): TimeEntry[] => {
+export const filterEntriesByDate = (
+  entries: TimeEntry[],
+  startDate: Date,
+  endDate: Date
+): TimeEntry[] => {
   const start = formatDate(startDate);
   const end = formatDate(endDate);
-  
-  return entries.filter(entry => entry.date >= start && entry.date <= end);
+
+  return entries.filter((entry) => entry.date >= start && entry.date <= end);
 };
 
 export const getTotalHours = (entries: TimeEntry[]): number => {

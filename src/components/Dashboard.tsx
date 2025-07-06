@@ -1,31 +1,26 @@
-import { useState, useEffect } from 'react';
-import type { TimeEntry, ViewMode } from '../types';
-import { useTimeEntries } from '../hooks/useTimeEntries';
-import { mockTimeEntries } from '../data/mockData';
-import { 
-  addDays, 
-  addWeeks, 
-  addMonths, 
-  addYears 
-} from '../utils/dateUtils';
+import { useState, useEffect } from "react";
+import type { TimeEntry, ViewMode } from "../types";
+import { useTimeEntries } from "../hooks/useTimeEntries";
+import { mockTimeEntries } from "../data/mockData";
+import { addDays, addWeeks, addMonths, addYears } from "../utils/dateUtils";
 
 // Components
-import EntryForm from './EntryForm';
-import NavigationControls from './NavigationControls';
+import EntryForm from "./EntryForm";
+import NavigationControls from "./NavigationControls";
 
 // Views
-import DashboardOverview from '../views/DashboardOverview';
-import DailyView from '../views/DailyView';
-import WeeklyView from '../views/WeeklyView';
-import MonthlyView from '../views/MonthlyView';
-import YearlyView from '../views/YearlyView';
-import CustomRangeView from '../views/CustomRangeView';
+import DashboardOverview from "../views/DashboardOverview";
+import DailyView from "../views/DailyView";
+import WeeklyView from "../views/WeeklyView";
+import MonthlyView from "../views/MonthlyView";
+import YearlyView from "../views/YearlyView";
+import CustomRangeView from "../views/CustomRangeView";
 
 import "./Dashboard.css";
 
 function Dashboard() {
   const { entries, addEntry, updateEntry, deleteEntry } = useTimeEntries();
-  const [viewMode, setViewMode] = useState<ViewMode>('dashboard');
+  const [viewMode, setViewMode] = useState<ViewMode>("dashboard");
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
@@ -33,7 +28,7 @@ function Dashboard() {
   // Load mock data if no entries exist
   useEffect(() => {
     if (entries.length === 0) {
-      mockTimeEntries.forEach(entry => addEntry(entry));
+      mockTimeEntries.forEach((entry) => addEntry(entry));
     }
   }, [entries.length, addEntry]);
 
@@ -72,36 +67,36 @@ function Dashboard() {
 
   const handlePreviousPeriod = () => {
     switch (viewMode) {
-      case 'daily':
-        setSelectedDate(prev => addDays(prev, -1));
+      case "daily":
+        setSelectedDate((prev) => addDays(prev, -1));
         break;
-      case 'weekly':
-      case 'biweekly':
-        setSelectedDate(prev => addWeeks(prev, viewMode === 'biweekly' ? -2 : -1));
+      case "weekly":
+      case "biweekly":
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? -2 : -1));
         break;
-      case 'monthly':
-        setSelectedDate(prev => addMonths(prev, -1));
+      case "monthly":
+        setSelectedDate((prev) => addMonths(prev, -1));
         break;
-      case 'yearly':
-        setSelectedDate(prev => addYears(prev, -1));
+      case "yearly":
+        setSelectedDate((prev) => addYears(prev, -1));
         break;
     }
   };
 
   const handleNextPeriod = () => {
     switch (viewMode) {
-      case 'daily':
-        setSelectedDate(prev => addDays(prev, 1));
+      case "daily":
+        setSelectedDate((prev) => addDays(prev, 1));
         break;
-      case 'weekly':
-      case 'biweekly':
-        setSelectedDate(prev => addWeeks(prev, viewMode === 'biweekly' ? 2 : 1));
+      case "weekly":
+      case "biweekly":
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? 2 : 1));
         break;
-      case 'monthly':
-        setSelectedDate(prev => addMonths(prev, 1));
+      case "monthly":
+        setSelectedDate((prev) => addMonths(prev, 1));
         break;
-      case 'yearly':
-        setSelectedDate(prev => addYears(prev, 1));
+      case "yearly":
+        setSelectedDate((prev) => addYears(prev, 1));
         break;
     }
   };
@@ -112,40 +107,40 @@ function Dashboard() {
 
   const getCurrentPeriodText = () => {
     switch (viewMode) {
-      case 'daily':
-        return selectedDate.toLocaleDateString('en-US', { 
-          weekday: 'long', 
-          year: 'numeric', 
-          month: 'long', 
-          day: 'numeric' 
+      case "daily":
+        return selectedDate.toLocaleDateString("en-US", {
+          weekday: "long",
+          year: "numeric",
+          month: "long",
+          day: "numeric",
         });
-      case 'weekly':
-        return `Week of ${selectedDate.toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric', 
-          year: 'numeric' 
+      case "weekly":
+        return `Week of ${selectedDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
         })}`;
-      case 'biweekly':
-        return `Bi-weekly period of ${selectedDate.toLocaleDateString('en-US', { 
-          month: 'short', 
-          day: 'numeric', 
-          year: 'numeric' 
+      case "biweekly":
+        return `Bi-weekly period of ${selectedDate.toLocaleDateString("en-US", {
+          month: "short",
+          day: "numeric",
+          year: "numeric",
         })}`;
-      case 'monthly':
-        return selectedDate.toLocaleDateString('en-US', { 
-          month: 'long', 
-          year: 'numeric' 
+      case "monthly":
+        return selectedDate.toLocaleDateString("en-US", {
+          month: "long",
+          year: "numeric",
         });
-      case 'yearly':
+      case "yearly":
         return selectedDate.getFullYear().toString();
       default:
-        return 'Dashboard';
+        return "Dashboard";
     }
   };
 
   const renderCurrentView = () => {
     switch (viewMode) {
-      case 'dashboard':
+      case "dashboard":
         return (
           <DashboardOverview
             entries={entries}
@@ -154,7 +149,7 @@ function Dashboard() {
             onAddEntry={handleAddEntry}
           />
         );
-      case 'daily':
+      case "daily":
         return (
           <DailyView
             entries={entries}
@@ -164,39 +159,23 @@ function Dashboard() {
             onAddEntry={handleAddEntry}
           />
         );
-      case 'weekly':
+      case "weekly":
         return (
-          <WeeklyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-          />
+          <WeeklyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
         );
-      case 'biweekly':
+      case "biweekly":
         return (
-          <WeeklyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-          />
+          <WeeklyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
         );
-      case 'monthly':
+      case "monthly":
         return (
-          <MonthlyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-          />
+          <MonthlyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
         );
-      case 'yearly':
+      case "yearly":
         return (
-          <YearlyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-          />
+          <YearlyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
         );
-      case 'custom':
+      case "custom":
         return (
           <CustomRangeView
             entries={entries}
@@ -216,44 +195,44 @@ function Dashboard() {
       <ul className="navbar">
         <img src="https://via.placeholder.com/100x100" alt="Placeholder" className="nav-pic" />
         <button
-          onClick={() => handleViewChange('dashboard')}
-          className={`nav-btns ${viewMode === 'dashboard' ? 'active' : ''}`}
+          onClick={() => handleViewChange("dashboard")}
+          className={`nav-btns ${viewMode === "dashboard" ? "active" : ""}`}
         >
           Dashboard
         </button>
         <button
-          onClick={() => handleViewChange('daily')}
-          className={`nav-btns ${viewMode === 'daily' ? 'active' : ''}`}
+          onClick={() => handleViewChange("daily")}
+          className={`nav-btns ${viewMode === "daily" ? "active" : ""}`}
         >
           Daily Logs
         </button>
         <button
-          onClick={() => handleViewChange('weekly')}
-          className={`nav-btns ${viewMode === 'weekly' ? 'active' : ''}`}
+          onClick={() => handleViewChange("weekly")}
+          className={`nav-btns ${viewMode === "weekly" ? "active" : ""}`}
         >
           Weekly Summary
         </button>
         <button
-          onClick={() => handleViewChange('biweekly')}
-          className={`nav-btns ${viewMode === 'biweekly' ? 'active' : ''}`}
+          onClick={() => handleViewChange("biweekly")}
+          className={`nav-btns ${viewMode === "biweekly" ? "active" : ""}`}
         >
           Bi-Weekly Summary
         </button>
         <button
-          onClick={() => handleViewChange('monthly')}
-          className={`nav-btns ${viewMode === 'monthly' ? 'active' : ''}`}
+          onClick={() => handleViewChange("monthly")}
+          className={`nav-btns ${viewMode === "monthly" ? "active" : ""}`}
         >
           Monthly Summary
         </button>
         <button
-          onClick={() => handleViewChange('yearly')}
-          className={`nav-btns ${viewMode === 'yearly' ? 'active' : ''}`}
+          onClick={() => handleViewChange("yearly")}
+          className={`nav-btns ${viewMode === "yearly" ? "active" : ""}`}
         >
           Yearly Summary
         </button>
         <button
-          onClick={() => handleViewChange('custom')}
-          className={`nav-btns ${viewMode === 'custom' ? 'active' : ''}`}
+          onClick={() => handleViewChange("custom")}
+          className={`nav-btns ${viewMode === "custom" ? "active" : ""}`}
         >
           Custom Range
         </button>
@@ -284,9 +263,9 @@ function Dashboard() {
         <header className="header">
           <h1>{getCurrentPeriodText()}</h1>
         </header>
-        
+
         {/* Navigation Controls for non-dashboard views */}
-        {viewMode !== 'dashboard' && viewMode !== 'custom' && (
+        {viewMode !== "dashboard" && viewMode !== "custom" && (
           <div className="navigation-wrapper">
             <NavigationControls
               onPrevious={handlePreviousPeriod}
@@ -298,9 +277,7 @@ function Dashboard() {
         )}
 
         {/* Current View */}
-        <div className="view-container">
-          {renderCurrentView()}
-        </div>
+        <div className="view-container">{renderCurrentView()}</div>
       </main>
 
       {/* Entry Form Modal */}

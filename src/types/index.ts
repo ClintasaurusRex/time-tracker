@@ -5,7 +5,14 @@ export interface TimeEntry {
   task: string;
 }
 
-export type ViewMode = 'dashboard' | 'daily' | 'weekly' | 'biweekly' | 'monthly' | 'yearly' | 'custom';
+export type ViewMode =
+  | "dashboard"
+  | "daily"
+  | "weekly"
+  | "biweekly"
+  | "monthly"
+  | "yearly"
+  | "custom";
 
 export interface DateRange {
   start: string;

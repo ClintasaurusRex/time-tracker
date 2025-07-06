@@ -116,40 +116,40 @@
   .monthly-view {
     padding: 16px;
   }
-  
+
   .calendar-container {
     padding: 16px;
   }
-  
+
   .calendar-day,
   .empty-day {
     min-height: 60px;
     padding: 6px;
   }
-  
+
   .day-number {
     font-size: 12px;
   }
-  
+
   .day-hours {
     font-size: 10px;
   }
-  
+
   .day-entries-indicator {
     width: 16px;
     height: 16px;
     font-size: 9px;
   }
-  
+
   .weekday-header {
     font-size: 12px;
     padding: 8px;
   }
-  
+
   .monthly-actions {
     justify-content: center;
   }
-  
+
   .add-entry-btn {
     width: 100%;
     max-width: 200px;

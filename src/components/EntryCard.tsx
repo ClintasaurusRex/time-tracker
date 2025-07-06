@@ -1,5 +1,5 @@
-import type { TimeEntry } from '../types';
-import './EntryCard.css';
+import type { TimeEntry } from "../types";
+import "./EntryCard.css";
 
 interface EntryCardProps {
   entry: TimeEntry;
@@ -9,7 +9,7 @@ interface EntryCardProps {
 
 function EntryCard({ entry, onEdit, onDelete }: EntryCardProps) {
   const handleDelete = () => {
-    if (window.confirm('Are you sure you want to delete this entry?')) {
+    if (window.confirm("Are you sure you want to delete this entry?")) {
       onDelete(entry.id);
     }
   };
@@ -20,9 +20,9 @@ function EntryCard({ entry, onEdit, onDelete }: EntryCardProps) {
         <div className="entry-date">{entry.date}</div>
         <div className="entry-hours">{entry.hours}h</div>
       </div>
-      
+
       <div className="entry-task">{entry.task}</div>
-      
+
       <div className="entry-actions">
         <button onClick={() => onEdit(entry)} className="btn-edit">
           Edit

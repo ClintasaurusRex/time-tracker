@@ -1,16 +1,16 @@
-import { useMemo } from 'react';
-import type { TimeEntry } from '../types';
-import { 
-  getStartOfWeek, 
-  getEndOfWeek, 
-  filterEntriesByDate, 
+import { useMemo } from "react";
+import type { TimeEntry } from "../types";
+import {
+  getStartOfWeek,
+  getEndOfWeek,
+  filterEntriesByDate,
   getTotalHours,
   groupEntriesByDate,
-  addDays 
-} from '../utils/dateUtils';
-import PeriodSummary from '../components/PeriodSummary';
-import EmptyState from '../components/EmptyState';
-import './WeeklyView.css';
+  addDays,
+} from "../utils/dateUtils";
+import PeriodSummary from "../components/PeriodSummary";
+import EmptyState from "../components/EmptyState";
+import "./WeeklyView.css";
 
 interface WeeklyViewProps {
   entries: TimeEntry[];
@@ -21,7 +21,7 @@ interface WeeklyViewProps {
 function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
   const weekStart = useMemo(() => getStartOfWeek(selectedDate), [selectedDate]);
   const weekEnd = useMemo(() => getEndOfWeek(selectedDate), [selectedDate]);
-  
+
   const weekEntries = useMemo(() => {
     return filterEntriesByDate(entries, weekStart, weekEnd);
   }, [entries, weekStart, weekEnd]);
@@ -30,13 +30,17 @@ function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
   const entriesByDate = useMemo(() => groupEntriesByDate(weekEntries), [weekEntries]);
 
   const formatWeekPeriod = (start: Date, end: Date) => {
-    const startStr = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const endStr = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' });
+    const startStr = start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const endStr = end.toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    });
     return `${startStr} - ${endStr}`;
   };
 
   const getDayEntries = (date: Date) => {
-    const dateStr = date.toISOString().split('T')[0];
+    const dateStr = date.toISOString().split("T")[0];
     return entriesByDate[dateStr] || [];
   };
 
@@ -72,30 +76,28 @@ function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
         />
       ) : (
         <div className="week-grid">
-          {weekDays.map(date => {
+          {weekDays.map((date) => {
             const dayEntries = getDayEntries(date);
             const dayTotal = getTotalHours(dayEntries);
             const isToday = date.toDateString() === new Date().toDateString();
-            
+
             return (
-              <div key={date.toISOString()} className={`day-card ${isToday ? 'today' : ''}`}>
+              <div key={date.toISOString()} className={`day-card ${isToday ? "today" : ""}`}>
                 <div className="day-header">
                   <div className="day-name">
-                    {date.toLocaleDateString('en-US', { weekday: 'short' })}
+                    {date.toLocaleDateString("en-US", { weekday: "short" })}
                   </div>
                   <div className="day-date">
-                    {date.toLocaleDateString('en-US', { month: 'short', day: 'numeric' })}
+                    {date.toLocaleDateString("en-US", { month: "short", day: "numeric" })}
                   </div>
                 </div>
-                
-                <div className="day-hours">
-                  {dayTotal > 0 ? `${dayTotal.toFixed(1)}h` : '0h'}
-                </div>
-                
+
+                <div className="day-hours">{dayTotal > 0 ? `${dayTotal.toFixed(1)}h` : "0h"}</div>
+
                 <div className="day-entries">
                   {dayEntries.length > 0 ? (
                     <div className="entries-count">
-                      {dayEntries.length} {dayEntries.length === 1 ? 'entry' : 'entries'}
+                      {dayEntries.length} {dayEntries.length === 1 ? "entry" : "entries"}
                     </div>
                   ) : (
                     <div className="no-entries">No entries</div>

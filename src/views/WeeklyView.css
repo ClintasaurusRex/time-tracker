@@ -97,24 +97,24 @@
   .weekly-view {
     padding: 16px;
   }
-  
+
   .week-grid {
     grid-template-columns: repeat(2, 1fr);
     gap: 12px;
   }
-  
+
   .day-card {
     padding: 12px;
   }
-  
+
   .day-hours {
     font-size: 20px;
   }
-  
+
   .weekly-actions {
     justify-content: center;
   }
-  
+
   .add-entry-btn {
     width: 100%;
     max-width: 200px;

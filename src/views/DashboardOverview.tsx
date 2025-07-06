@@ -1,16 +1,16 @@
-import { useMemo } from 'react';
-import type { TimeEntry } from '../types';
-import { 
-  filterEntriesByDate, 
+import { useMemo } from "react";
+import type { TimeEntry } from "../types";
+import {
+  filterEntriesByDate,
   getTotalHours,
   getStartOfWeek,
   getEndOfWeek,
   getStartOfMonth,
-  getEndOfMonth
-} from '../utils/dateUtils';
-import EntryCard from '../components/EntryCard';
-import EmptyState from '../components/EmptyState';
-import './DashboardOverview.css';
+  getEndOfMonth,
+} from "../utils/dateUtils";
+import EntryCard from "../components/EntryCard";
+import EmptyState from "../components/EmptyState";
+import "./DashboardOverview.css";
 
 interface DashboardOverviewProps {
   entries: TimeEntry[];
@@ -19,7 +19,12 @@ interface DashboardOverviewProps {
   onAddEntry: () => void;
 }
 
-function DashboardOverview({ entries, onEditEntry, onDeleteEntry, onAddEntry }: DashboardOverviewProps) {
+function DashboardOverview({
+  entries,
+  onEditEntry,
+  onDeleteEntry,
+  onAddEntry,
+}: DashboardOverviewProps) {
   const today = useMemo(() => new Date(), []);
   const weekStart = useMemo(() => getStartOfWeek(today), [today]);
   const weekEnd = useMemo(() => getEndOfWeek(today), [today]);
@@ -53,8 +58,8 @@ function DashboardOverview({ entries, onEditEntry, onDeleteEntry, onAddEntry }: 
   const monthHours = useMemo(() => getTotalHours(monthEntries), [monthEntries]);
 
   const formatDateRange = (start: Date, end: Date) => {
-    const startStr = start.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
-    const endStr = end.toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    const startStr = start.toLocaleDateString("en-US", { month: "short", day: "numeric" });
+    const endStr = end.toLocaleDateString("en-US", { month: "short", day: "numeric" });
     return `${startStr} - ${endStr}`;
   };
 
@@ -71,7 +76,13 @@ function DashboardOverview({ entries, onEditEntry, onDeleteEntry, onAddEntry }: 
         <div className="stat-card today">
           <div className="stat-header">
             <h3>Today</h3>
-            <div className="stat-date">{today.toLocaleDateString('en-US', { weekday: 'long', month: 'short', day: 'numeric' })}</div>
+            <div className="stat-date">
+              {today.toLocaleDateString("en-US", {
+                weekday: "long",
+                month: "short",
+                day: "numeric",
+              })}
+            </div>
           </div>
           <div className="stat-value">{todayHours.toFixed(1)}h</div>
           <div className="stat-detail">{todayEntries.length} entries</div>
@@ -89,7 +100,9 @@ function DashboardOverview({ entries, onEditEntry, onDeleteEntry, onAddEntry }: 
         <div className="stat-card month">
           <div className="stat-header">
             <h3>This Month</h3>
-            <div className="stat-date">{today.toLocaleDateString('en-US', { month: 'long', year: 'numeric' })}</div>
+            <div className="stat-date">
+              {today.toLocaleDateString("en-US", { month: "long", year: "numeric" })}
+            </div>
           </div>
           <div className="stat-value">{monthHours.toFixed(1)}h</div>
           <div className="stat-detail">{monthEntries.length} entries</div>
@@ -107,7 +120,7 @@ function DashboardOverview({ entries, onEditEntry, onDeleteEntry, onAddEntry }: 
           />
         ) : (
           <div className="recent-entries">
-            {recentEntries.map(entry => (
+            {recentEntries.map((entry) => (
               <EntryCard
                 key={entry.id}
                 entry={entry}

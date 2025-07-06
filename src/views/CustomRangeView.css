@@ -104,26 +104,26 @@
   .custom-range-view {
     padding: 16px;
   }
-  
+
   .date-range-controls {
     padding: 16px;
   }
-  
+
   .date-inputs {
     flex-direction: column;
     gap: 16px;
   }
-  
+
   .range-actions {
     flex-direction: column;
     gap: 8px;
   }
-  
+
   .add-entry-btn,
   .export-btn {
     width: 100%;
   }
-  
+
   .entries-section {
     padding: 16px;
   }

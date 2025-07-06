@@ -1,10 +1,10 @@
-import { useMemo } from 'react';
-import type { TimeEntry } from '../types';
-import { filterEntriesByDate, getTotalHours } from '../utils/dateUtils';
-import PeriodSummary from '../components/PeriodSummary';
-import EntryCard from '../components/EntryCard';
-import EmptyState from '../components/EmptyState';
-import './DailyView.css';
+import { useMemo } from "react";
+import type { TimeEntry } from "../types";
+import { filterEntriesByDate, getTotalHours } from "../utils/dateUtils";
+import PeriodSummary from "../components/PeriodSummary";
+import EntryCard from "../components/EntryCard";
+import EmptyState from "../components/EmptyState";
+import "./DailyView.css";
 
 interface DailyViewProps {
   entries: TimeEntry[];
@@ -14,7 +14,13 @@ interface DailyViewProps {
   onAddEntry: () => void;
 }
 
-function DailyView({ entries, selectedDate, onEditEntry, onDeleteEntry, onAddEntry }: DailyViewProps) {
+function DailyView({
+  entries,
+  selectedDate,
+  onEditEntry,
+  onDeleteEntry,
+  onAddEntry,
+}: DailyViewProps) {
   const dayEntries = useMemo(() => {
     const endDate = new Date(selectedDate);
     return filterEntriesByDate(entries, selectedDate, endDate);
@@ -23,11 +29,11 @@ function DailyView({ entries, selectedDate, onEditEntry, onDeleteEntry, onAddEnt
   const totalHours = useMemo(() => getTotalHours(dayEntries), [dayEntries]);
 
   const formatDateForDisplay = (date: Date) => {
-    return date.toLocaleDateString('en-US', {
-      weekday: 'long',
-      year: 'numeric',
-      month: 'long',
-      day: 'numeric'
+    return date.toLocaleDateString("en-US", {
+      weekday: "long",
+      year: "numeric",
+      month: "long",
+      day: "numeric",
     });
   };
 
@@ -55,13 +61,8 @@ function DailyView({ entries, selectedDate, onEditEntry, onDeleteEntry, onAddEnt
             onAction={onAddEntry}
           />
         ) : (
-          dayEntries.map(entry => (
-            <EntryCard
-              key={entry.id}
-              entry={entry}
-              onEdit={onEditEntry}
-              onDelete={onDeleteEntry}
-            />
+          dayEntries.map((entry) => (
+            <EntryCard key={entry.id} entry={entry} onEdit={onEditEntry} onDelete={onDeleteEntry} />
           ))
         )}
       </div>

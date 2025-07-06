@@ -83,13 +83,13 @@
   .entry-card {
     padding: 12px;
   }
-  
+
   .entry-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
-  
+
   .entry-actions {
     justify-content: flex-start;
   }

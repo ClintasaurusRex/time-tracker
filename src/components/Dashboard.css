@@ -102,7 +102,7 @@ button {
   .dashboard-container {
     flex-direction: column;
   }
-  
+
   .navbar {
     flex-direction: row;
     width: 100%;
@@ -111,27 +111,27 @@ button {
     gap: 8px;
     overflow-x: auto;
   }
-  
+
   .navbar-spacer {
     display: none;
   }
-  
+
   .nav-pic {
     display: none;
   }
-  
+
   .nav-btns {
     white-space: nowrap;
     font-size: 14px;
     padding: 8px 12px;
     min-width: 80px;
   }
-  
+
   .header {
     min-height: 60px;
     font-size: 18px;
   }
-  
+
   .header h1 {
     font-size: 18px;
   }

@@ -61,11 +61,11 @@
     flex-direction: column;
     gap: 12px;
   }
-  
+
   .current-period {
     order: -1;
   }
-  
+
   .nav-btn {
     width: 100%;
     max-width: 120px;

@@ -118,39 +118,39 @@
   .dashboard-overview {
     padding: 16px;
   }
-  
+
   .dashboard-header {
     flex-direction: column;
     gap: 16px;
     align-items: stretch;
   }
-  
+
   .add-entry-btn {
     width: 100%;
     max-width: 200px;
     align-self: center;
   }
-  
+
   .stats-grid {
     grid-template-columns: 1fr;
     gap: 16px;
     margin-bottom: 24px;
   }
-  
+
   .stat-card {
     padding: 16px;
   }
-  
+
   .stat-header {
     flex-direction: column;
     align-items: flex-start;
     gap: 4px;
   }
-  
+
   .stat-value {
     font-size: 24px;
   }
-  
+
   .recent-section {
     padding: 16px;
   }
