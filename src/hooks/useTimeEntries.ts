@@ -7,16 +7,11 @@ export const useTimeEntries = () => {
 
   // Load entries from localStorage on component mount
   useEffect(() => {
-    console.log("Loading entries from localStorage...");
     const savedEntries = localStorage.getItem("timeEntries");
-    console.log("Raw localStorage data:", savedEntries);
     if (savedEntries) {
-      const parsedEntries = JSON.parse(savedEntries);
-      console.log("Parsed entries:", parsedEntries);
-      setEntries(parsedEntries);
+      setEntries(JSON.parse(savedEntries));
     }
     setIsLoaded(true);
-    console.log("Initial load complete");
   }, []);
 
   // Save entries to localStorage whenever entries change (but only after initial load)

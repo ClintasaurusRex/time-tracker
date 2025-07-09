@@ -1,7 +1,6 @@
 import { useState, useEffect } from "react";
 import type { TimeEntry, ViewMode } from "../types";
 import { useTimeEntries } from "../hooks/useTimeEntries";
-import { mockTimeEntries } from "../data/mockData";
 import { addDays, addWeeks, addMonths, addYears } from "../utils/dateUtils";
 
 // Components
@@ -25,19 +24,7 @@ function Dashboard() {
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
 
-  // Load mock data if no entries exist
-  useEffect(() => {
-    // Only load mock data if we have no entries at all
-    if (entries.length === 0) {
-      // Add a small delay to ensure the hook has loaded from localStorage first
-      const timer = setTimeout(() => {
-        if (entries.length === 0) {
-          mockTimeEntries.forEach((entry) => addEntry(entry));
-        }
-      }, 100);
-      return () => clearTimeout(timer);
-    }
-  }, [entries.length, addEntry]);
+  // ...existing code...
 
   const handleViewChange = (mode: ViewMode) => {
     setViewMode(mode);

@@ -71,7 +71,7 @@ A simple, modern time tracking application built with React and Tailwind CSS. Us
   - `src/views/`
   - `src/hooks/`
   - `src/utils/`
-  - `src/data/` (for mock data)
+  - `src/data/` (for data)
   - `src/App.jsx`
 - Set up version control (Git)
 - Add README and initial documentation
@@ -90,7 +90,7 @@ A simple, modern time tracking application built with React and Tailwind CSS. Us
   }
   ```
 - Store entries in top-level state (useState or context)
-- Create mock data for development
+  - (Remove mock data for production)
 - (Optional) Implement custom hooks for data access/mutation
 
 ### PHASE 3: UI Components

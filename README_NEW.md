@@ -45,8 +45,7 @@ src/
 │   └── dateUtils.ts    # Date manipulation helpers
 ├── types/              # TypeScript type definitions
 │   └── index.ts        # Application interfaces
-└── data/               # Mock data
-    └── mockData.ts     # Sample time entries
+└── data/               # (No mock data)
 ```
 
 ## Getting Started
