@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { TimeEntry } from "../types";
 import {
   getStartOfMonth,
@@ -9,15 +9,27 @@ import {
 } from "../utils/dateUtils";
 import PeriodSummary from "../components/PeriodSummary";
 import EmptyState from "../components/EmptyState";
+import DayModal from "../components/DayModal";
 import "./MonthlyView.css";
 
 interface MonthlyViewProps {
   entries: TimeEntry[];
   selectedDate: Date;
   onAddEntry: () => void;
+  onEditEntry: (entry: TimeEntry) => void;
+  onDeleteEntry: (id: string) => void;
 }
 
-function MonthlyView({ entries, selectedDate, onAddEntry }: MonthlyViewProps) {
+function MonthlyView({
+  entries,
+  selectedDate,
+  onAddEntry,
+  onEditEntry,
+  onDeleteEntry,
+}: MonthlyViewProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDayDate, setSelectedDayDate] = useState<Date | null>(null);
+
   const monthStart = useMemo(() => getStartOfMonth(selectedDate), [selectedDate]);
   const monthEnd = useMemo(() => getEndOfMonth(selectedDate), [selectedDate]);
 
@@ -35,6 +47,21 @@ function MonthlyView({ entries, selectedDate, onAddEntry }: MonthlyViewProps) {
   const getDayEntries = (date: Date) => {
     const dateStr = date.toISOString().split("T")[0];
     return entriesByDate[dateStr] || [];
+  };
+
+  const handleDayClick = (date: Date) => {
+    setSelectedDayDate(date);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDayDate(null);
+  };
+
+  const getSelectedDayEntries = () => {
+    if (!selectedDayDate) return [];
+    return getDayEntries(selectedDayDate);
   };
 
   const calendarDays = useMemo(() => {
@@ -101,11 +128,14 @@ function MonthlyView({ entries, selectedDate, onAddEntry }: MonthlyViewProps) {
               const isToday = date.toDateString() === new Date().toDateString();
 
               return (
-                <div key={date.toISOString()} className={`calendar-day ${isToday ? "today" : ""}`}>
+                <div
+                  key={date.toISOString()}
+                  className={`calendar-day ${isToday ? "today" : ""}`}
+                  onClick={() => handleDayClick(date)}
+                >
                   <div className="day-number">{date.getDate()}</div>
 
                   {dayTotal > 0 && <div className="day-hours">{dayTotal.toFixed(1)}h</div>}
-
                   {dayEntries.length > 0 && (
                     <div className="day-entries-indicator">{dayEntries.length}</div>
                   )}
@@ -114,6 +144,19 @@ function MonthlyView({ entries, selectedDate, onAddEntry }: MonthlyViewProps) {
             })}
           </div>
         </div>
+      )}
+
+      {/* Day Detail Modal */}
+      {selectedDayDate && (
+        <DayModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          selectedDate={selectedDayDate}
+          entries={getSelectedDayEntries()}
+          onEditEntry={onEditEntry}
+          onDeleteEntry={onDeleteEntry}
+          onAddEntry={onAddEntry}
+        />
       )}
     </div>
   );

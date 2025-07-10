@@ -163,7 +163,13 @@ function Dashboard() {
         );
       case "monthly":
         return (
-          <MonthlyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
+          <MonthlyView
+            entries={entries}
+            selectedDate={selectedDate}
+            onAddEntry={handleAddEntry}
+            onEditEntry={handleEditEntry}
+            onDeleteEntry={handleDeleteEntry}
+          />
         );
       case "yearly":
         return (
