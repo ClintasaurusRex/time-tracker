@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
 import type { TimeEntry } from "../types";
+import { mockEntries } from "../data/mockData";
 
 export const useTimeEntries = () => {
   const [entries, setEntries] = useState<TimeEntry[]>([]);
@@ -7,10 +8,9 @@ export const useTimeEntries = () => {
 
   // Load entries from localStorage on component mount
   useEffect(() => {
-    const savedEntries = localStorage.getItem("timeEntries");
-    if (savedEntries) {
-      setEntries(JSON.parse(savedEntries));
-    }
+    // Force load mock data (temporary for testing)
+    setEntries(mockEntries);
+    localStorage.setItem("timeEntries", JSON.stringify(mockEntries));
     setIsLoaded(true);
   }, []);
 
