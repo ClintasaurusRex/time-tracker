@@ -14,6 +14,7 @@ import WeeklyView from "../views/WeeklyView";
 import MonthlyView from "../views/MonthlyView";
 import YearlyView from "../views/YearlyView";
 import CustomRangeView from "../views/CustomRangeView";
+import BiWeeklyView from "../views/BiWeeklyView";
 
 import "./Dashboard.css";
 
@@ -159,7 +160,7 @@ function Dashboard() {
         );
       case "biweekly":
         return (
-          <WeeklyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
+          <BiWeeklyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
         );
       case "monthly":
         return (
