@@ -1,6 +1,46 @@
 import type { TimeEntry } from "../types";
 
 export const mockEntries: TimeEntry[] = [
+  // January
+  { id: "jan-1", date: "2025-01-10", hours: 7, task: "Project Alpha: Kickoff meeting." },
+  // February
+  { id: "feb-1", date: "2025-02-14", hours: 8, task: "Project Beta: Sprint planning." },
+  // March
+  { id: "mar-1", date: "2025-03-05", hours: 6, task: "Project Gamma: Initial design." },
+  // April
+  { id: "apr-1", date: "2025-04-20", hours: 7.5, task: "Project Delta: API integration." },
+  // May
+  {
+    id: "may-1",
+    date: "2025-05-17",
+    hours: 8,
+    task: "Internal Training: Node.js - Built backend services.",
+  },
+  // June
+  {
+    id: "jun-1",
+    date: "2025-06-13",
+    hours: 8,
+    task: "Client Project A: Database Design - Designed new database schema.",
+  },
+  // July
+  {
+    id: "jul-1",
+    date: "2025-07-18",
+    hours: 6,
+    task: "Time Tracker App: Frontend Development - Worked on the monthly view calendar.",
+  },
+  // August
+  { id: "aug-1", date: "2025-08-22", hours: 7, task: "Project Epsilon: Feature release." },
+  // September
+  { id: "sep-1", date: "2025-09-09", hours: 8, task: "Project Zeta: User testing." },
+  // October
+  { id: "oct-1", date: "2025-10-31", hours: 5, task: "Project Eta: Halloween event." },
+  // November
+  { id: "nov-1", date: "2025-11-15", hours: 7.5, task: "Project Theta: Final review." },
+  // December
+  { id: "dec-1", date: "2025-12-24", hours: 6, task: "Project Iota: Year-end wrap up." },
+
   // July 2025 - Current month with many entries
   {
     id: "1",
@@ -246,4 +286,33 @@ export const mockEntries: TimeEntry[] = [
     hours: 8,
     task: "Internal Training: Node.js - Built backend services.",
   },
+
+  // Weekly mock data for 2025 (one entry per week, Mondays)
+  ...Array.from({ length: 52 }, (_, i) => {
+    const weekStart = new Date(2025, 0, 1 + i * 7);
+    // Adjust to Monday
+    weekStart.setDate(weekStart.getDate() + ((1 - weekStart.getDay() + 7) % 7));
+    const month = String(weekStart.getMonth() + 1).padStart(2, "0");
+    const day = String(weekStart.getDate()).padStart(2, "0");
+    return {
+      id: `week-${i + 1}`,
+      date: `2025-${month}-${day}`,
+      hours: 4 + (i % 5), // Vary hours for realism
+      task: `Weekly Test Entry for week ${i + 1}`,
+    };
+  }),
+
+  // Bi-weekly mock data for 2025 (one entry every other Monday)
+  ...Array.from({ length: 26 }, (_, i) => {
+    const biWeekStart = new Date(2025, 0, 1 + i * 14);
+    biWeekStart.setDate(biWeekStart.getDate() + ((1 - biWeekStart.getDay() + 7) % 7));
+    const month = String(biWeekStart.getMonth() + 1).padStart(2, "0");
+    const day = String(biWeekStart.getDate()).padStart(2, "0");
+    return {
+      id: `biweek-${i + 1}`,
+      date: `2025-${month}-${day}`,
+      hours: 6 + (i % 3), // Vary hours for realism
+      task: `Bi-weekly Test Entry for period ${i + 1}`,
+    };
+  }),
 ];
