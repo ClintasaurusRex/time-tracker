@@ -113,6 +113,7 @@ function BiWeeklyView({
                 key={date.toISOString()}
                 className={`day-card ${isToday ? "today" : ""}`}
                 onClick={() => handleDayClick(date)}
+                style={{ cursor: "pointer" }}
               >
                 <div className="day-header">
                   <div className="day-name">
