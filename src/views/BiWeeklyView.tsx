@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { TimeEntry } from "../types";
 import {
   getStartOfWeek,
@@ -16,9 +16,20 @@ interface BiWeeklyViewProps {
   entries: TimeEntry[];
   selectedDate: Date;
   onAddEntry: () => void;
+  onEditEntry: (entry: TimeEntry) => void;
+  onDeleteEntry: (id: string) => void;
 }
 
-function BiWeeklyView({ entries, selectedDate, onAddEntry }: BiWeeklyViewProps) {
+function BiWeeklyView({
+  entries,
+  selectedDate,
+  onAddEntry,
+  onEditEntry,
+  onDeleteEntry,
+}: BiWeeklyViewProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDayDate, setSelectedDayDate] = useState<Date | null>(null);
+
   // Start at the beginning of the week for bi-weekly period
   const biWeekStart = useMemo(() => getStartOfWeek(selectedDate), [selectedDate]);
   const biWeekEnd = useMemo(() => addDays(biWeekStart, 13), [biWeekStart]);
@@ -53,8 +64,19 @@ function BiWeeklyView({ entries, selectedDate, onAddEntry }: BiWeeklyViewProps) 
     return days;
   }, [biWeekStart]);
 
+  const handleDayClick = (date: Date) => {
+    setSelectedDayDate(date);
+    setIsModalOpen(true);
+  };
+
   const handleCloseModal = () => {
-    // Logic to close the modal if needed
+    setIsModalOpen(false);
+    setSelectedDayDate(null);
+  };
+
+  const getSelectedDayEntries = () => {
+    if (!selectedDayDate) return [];
+    return getDayEntries(selectedDayDate);
   };
 
   return (
@@ -87,7 +109,11 @@ function BiWeeklyView({ entries, selectedDate, onAddEntry }: BiWeeklyViewProps) 
             const isToday = date.toDateString() === new Date().toDateString();
 
             return (
-              <div key={date.toISOString()} className={`day-card ${isToday ? "today" : ""}`}>
+              <div
+                key={date.toISOString()}
+                className={`day-card ${isToday ? "today" : ""}`}
+                onClick={() => handleDayClick(date)}
+              >
                 <div className="day-header">
                   <div className="day-name">
                     {date.toLocaleDateString("en-US", { weekday: "short" })}
@@ -112,6 +138,19 @@ function BiWeeklyView({ entries, selectedDate, onAddEntry }: BiWeeklyViewProps) 
             );
           })}
         </div>
+      )}
+
+      {/* Day Detail Modal */}
+      {selectedDayDate && (
+        <DayModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          selectedDate={selectedDayDate}
+          entries={getSelectedDayEntries()}
+          onEditEntry={onEditEntry}
+          onDeleteEntry={onDeleteEntry}
+          onAddEntry={onAddEntry}
+        />
       )}
     </div>
   );
