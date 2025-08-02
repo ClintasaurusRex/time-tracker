@@ -1,4 +1,4 @@
-import { useMemo } from "react";
+import { useMemo, useState } from "react";
 import type { TimeEntry } from "../types";
 import {
   getStartOfWeek,
@@ -10,15 +10,26 @@ import {
 } from "../utils/dateUtils";
 import PeriodSummary from "../components/PeriodSummary";
 import EmptyState from "../components/EmptyState";
+import DayModal from "../components/DayModal";
 import "./WeeklyView.css";
 
 interface WeeklyViewProps {
   entries: TimeEntry[];
   selectedDate: Date;
   onAddEntry: () => void;
+  onEditEntry: (entry: TimeEntry) => void;
+  onDeleteEntry: (id: string) => void;
 }
 
-function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
+function WeeklyView({
+  entries,
+  selectedDate,
+  onAddEntry,
+  onEditEntry,
+  onDeleteEntry,
+}: WeeklyViewProps) {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [selectedDayDate, setSelectedDayDate] = useState<Date | null>(null);
   const weekStart = useMemo(() => getStartOfWeek(selectedDate), [selectedDate]);
   const weekEnd = useMemo(() => getEndOfWeek(selectedDate), [selectedDate]);
 
@@ -52,6 +63,21 @@ function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
     return days;
   }, [weekStart]);
 
+  const handleDayClick = (date: Date) => {
+    setSelectedDayDate(date);
+    setIsModalOpen(true);
+  };
+
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setSelectedDayDate(null);
+  };
+
+  const getSelectedDayEntries = () => {
+    if (!selectedDayDate) return [];
+    return getDayEntries(selectedDayDate);
+  };
+
   return (
     <div className="weekly-view">
       <PeriodSummary
@@ -82,7 +108,12 @@ function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
             const isToday = date.toDateString() === new Date().toDateString();
 
             return (
-              <div key={date.toISOString()} className={`day-card ${isToday ? "today" : ""}`}>
+              <div
+                key={date.toISOString()}
+                className={`day-card ${isToday ? "today" : ""}`}
+                onClick={() => handleDayClick(date)}
+                style={{ cursor: "pointer" }}
+              >
                 <div className="day-header">
                   <div className="day-name">
                     {date.toLocaleDateString("en-US", { weekday: "short" })}
@@ -107,6 +138,19 @@ function WeeklyView({ entries, selectedDate, onAddEntry }: WeeklyViewProps) {
             );
           })}
         </div>
+      )}
+
+      {/* Day Detail Modal */}
+      {selectedDayDate && (
+        <DayModal
+          isOpen={isModalOpen}
+          onClose={handleCloseModal}
+          selectedDate={selectedDayDate}
+          entries={getSelectedDayEntries()}
+          onEditEntry={onEditEntry}
+          onDeleteEntry={onDeleteEntry}
+          onAddEntry={onAddEntry}
+        />
       )}
     </div>
   );

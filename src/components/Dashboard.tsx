@@ -156,7 +156,13 @@ function Dashboard() {
         );
       case "weekly":
         return (
-          <WeeklyView entries={entries} selectedDate={selectedDate} onAddEntry={handleAddEntry} />
+          <WeeklyView
+            entries={entries}
+            selectedDate={selectedDate}
+            onAddEntry={handleAddEntry}
+            onEditEntry={handleEditEntry}
+            onDeleteEntry={handleDeleteEntry}
+          />
         );
       case "biweekly":
         return (
