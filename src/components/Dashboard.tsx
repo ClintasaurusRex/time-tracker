@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import type { TimeEntry, ViewMode } from "../types";
 import { useTimeEntries } from "../hooks/useTimeEntries";
 import { addDays, addWeeks, addMonths, addYears } from "../utils/dateUtils";

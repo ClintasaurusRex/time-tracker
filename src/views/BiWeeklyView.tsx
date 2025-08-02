@@ -9,6 +9,7 @@ import {
 } from "../utils/dateUtils";
 import PeriodSummary from "../components/PeriodSummary";
 import EmptyState from "../components/EmptyState";
+import DayModal from "../components/DayModal";
 import "./WeeklyView.css";
 
 interface BiWeeklyViewProps {
@@ -51,6 +52,10 @@ function BiWeeklyView({ entries, selectedDate, onAddEntry }: BiWeeklyViewProps) 
     }
     return days;
   }, [biWeekStart]);
+
+  const handleCloseModal = () => {
+    // Logic to close the modal if needed
+  };
 
   return (
     <div className="weekly-view">
