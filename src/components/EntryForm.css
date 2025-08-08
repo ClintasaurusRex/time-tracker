@@ -71,6 +71,19 @@
   margin-top: 8px;
 }
 
+.form-time-inputs {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.form-time-inputs input {
+  flex: 1 1 0;
+  min-width: 0;
+}
+
 .btn {
   padding: 10px 20px;
   border: none;
