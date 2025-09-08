@@ -1,4 +1,4 @@
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import type { TimeEntry } from "../types";
 import { generateId } from "../utils/dateUtils";
 import "./EntryForm.css";
@@ -20,22 +20,12 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
   const [endTime, setEndTime] = useState(initialEntry?.endTime || "");
   const [task, setTask] = useState(initialEntry?.task || "");
 
-  // Sync: hours → endTime
-  useEffect(() => {
-    if (!hours) {
-      setEndTime("");
-      return;
-    }
-    if (!isNaN(Number(hours))) {
-      const start = new Date(`${date}T${startTime}`);
-      const newEnd = new Date(start.getTime() + Number(hours) * 60 * 60 * 1000);
-      setEndTime(newEnd.toTimeString().slice(0, 5));
-    }
-  }, [hours, startTime, date, endTime]);
+  const lastChanged = useRef<"hours" | "endTime" | null>(null);
 
-  // Sync: endTime → hours
   useEffect(() => {
-    if (!endTime) {
+    if (lastChanged.current === "hours") return;
+
+    if (!startTime || !endTime) {
       setHours("");
       return;
     }
@@ -51,7 +41,17 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
     if (!isNaN(diff)) {
       setHours(diff.toFixed(1));
     }
-  }, [endTime, startTime, date]);
+  }, [startTime, endTime, date]);
+
+  useEffect(() => {
+    if (lastChanged.current !== "hours") return;
+
+    if (!hours || isNaN(Number(hours))) return;
+
+    const start = new Date(`${date}T${startTime}`);
+    const newEnd = new Date(start.getTime() + Number(hours) * 60 * 60 * 1000);
+    setEndTime(newEnd.toTimeString().slice(0, 5));
+  }, [hours, startTime, date]);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -101,7 +101,10 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
               type="number"
               id="hours"
               value={hours}
-              onChange={(e) => setHours(e.target.value)}
+              onChange={(e) => {
+                setHours(e.target.value);
+                lastChanged.current = "hours";
+              }}
               onBlur={() => {
                 if (!isNaN(Number(hours)) && hours !== "") {
                   setHours(Number(hours).toFixed(1));
@@ -121,7 +124,10 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
                 type="time"
                 id="startTime"
                 value={startTime}
-                onChange={(e) => setStartTime(e.target.value)}
+                onChange={(e) => {
+                  setStartTime(e.target.value);
+                  lastChanged.current = "endTime";
+                }}
                 required
               />
               <label htmlFor="endTime">End Time:</label>
@@ -131,6 +137,7 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
                 value={endTime}
                 onChange={(e) => {
                   setEndTime(e.target.value);
+                  lastChanged.current = "endTime";
                 }}
                 required
               />
