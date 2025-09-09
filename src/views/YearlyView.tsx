@@ -1,5 +1,5 @@
 import { useMemo } from "react";
-import type { TimeEntry } from "../types";
+import type { TimeEntry, ViewMode } from "../types";
 import {
   getStartOfYear,
   getEndOfYear,
@@ -14,9 +14,15 @@ interface YearlyViewProps {
   entries: TimeEntry[];
   selectedDate: Date;
   onAddEntry: () => void;
+  onNavigate: (mode: ViewMode, date: Date) => void;
 }
 
-function YearlyView({ entries, selectedDate, onAddEntry }: YearlyViewProps) {
+function YearlyView({
+  entries,
+  selectedDate,
+  onAddEntry,
+  onNavigate,
+}: YearlyViewProps) {
   const yearStart = useMemo(() => getStartOfYear(selectedDate), [selectedDate]);
   const yearEnd = useMemo(() => getEndOfYear(selectedDate), [selectedDate]);
 
@@ -28,6 +34,10 @@ function YearlyView({ entries, selectedDate, onAddEntry }: YearlyViewProps) {
 
   const formatYearPeriod = (date: Date) => {
     return date.getFullYear().toString();
+  };
+
+  const handleMonthClick = (date: Date) => {
+    onNavigate("monthly", date);
   };
 
   const monthlyData = useMemo(() => {
@@ -98,7 +108,12 @@ function YearlyView({ entries, selectedDate, onAddEntry }: YearlyViewProps) {
             return (
               <div
                 key={month.name}
-                className={`month-card ${isCurrentMonth ? "current-month" : ""}`}
+                className={`month-card ${
+                  isCurrentMonth ? "current-month" : ""
+                }`}
+                onClick={() => {
+                  handleMonthClick(month.date);
+                }}
               >
                 <div className="month-header">
                   <div className="month-name">{month.name}</div>
@@ -112,7 +127,8 @@ function YearlyView({ entries, selectedDate, onAddEntry }: YearlyViewProps) {
                 <div className="month-entries">
                   {month.entries > 0 ? (
                     <div className="entries-count">
-                      {month.entries} {month.entries === 1 ? "entry" : "entries"}
+                      {month.entries}{" "}
+                      {month.entries === 1 ? "entry" : "entries"}
                     </div>
                   ) : (
                     <div className="no-entries">No entries</div>
@@ -125,7 +141,9 @@ function YearlyView({ entries, selectedDate, onAddEntry }: YearlyViewProps) {
                       className="month-bar-fill"
                       style={{
                         width: `${Math.min(
-                          (month.hours / Math.max(...monthlyData.map((m) => m.hours))) * 100,
+                          (month.hours /
+                            Math.max(...monthlyData.map((m) => m.hours))) *
+                            100,
                           100
                         )}%`,
                       }}
