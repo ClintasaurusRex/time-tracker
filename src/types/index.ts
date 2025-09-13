@@ -1,6 +1,8 @@
 export interface TimeEntry {
   id: string;
   date: string; // YYYY-MM-DD format
+  startTime: string; // HH:MM format (24-hour)
+  endTime: string; // HH:MM format (24-hour)
   hours: number;
   task: string;
 }

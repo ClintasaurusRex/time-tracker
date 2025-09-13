@@ -14,10 +14,21 @@ function EntryCard({ entry, onEdit, onDelete }: EntryCardProps) {
     }
   };
 
+  const formatTime = (time: string) => {
+    if (!time) return "";
+    const [hours, minutes] = time.split(":").map(Number);
+    const period = hours >= 12 ? "PM" : "AM";
+    const adjustedHours = hours % 12 || 12;
+    return `${adjustedHours}:${minutes.toString().padStart(2, "0")} ${period}`;
+  };
+
   return (
     <div className="entry-card">
       <div className="entry-header">
         <div className="entry-date">{entry.date}</div>
+        <div className="entry-date">
+          {formatTime(entry.startTime)} - {formatTime(entry.endTime)}
+        </div>
         <div className="entry-hours">{entry.hours}h</div>
       </div>
 
