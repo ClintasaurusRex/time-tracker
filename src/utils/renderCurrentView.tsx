@@ -1,5 +1,3 @@
-import { useState } from "react";
-
 // Views
 import DashboardOverview from "../views/DashboardOverview";
 import DailyView from "../views/DailyView";
@@ -10,60 +8,29 @@ import CustomRangeView from "../views/CustomRangeView";
 import BiWeeklyView from "../views/BiWeeklyView";
 
 import type { TimeEntry, ViewMode } from "../types";
-
-import { useTimeEntries } from "../hooks/useTimeEntries";
-
 interface RenderCurrentViewProps {
-  viewMode: ViewMode;
-  entries: TimeEntry[];
-  selectedDate: Date;
-  handleEditEntry: (entry: TimeEntry) => void;
-  handleDeleteEntry: (id: string) => void;
-  handleAddEntry: () => void;
-  setViewMode: (mode: ViewMode) => void;
-  setSelectedDate: (date: Date) => void;
+  viewMode: ViewMode; // Current view mode (e.g., "daily", "weekly")
+  entries: TimeEntry[]; // List of time entries
+  selectedDate: Date; // Currently selected date
+  handleEditEntry: (entry: TimeEntry) => void; // Function to handle editing an entry
+  handleDeleteEntry: (id: string) => void; // Function to handle deleting an entry
+  handleAddEntry: () => void; // Function to handle adding a new entry
+  setViewMode: (mode: ViewMode) => void; // Function to change the view mode
+  setSelectedDate: (date: Date) => void; // Function to change the selected date
 }
 
-export default function renderCurrentView() {
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showEntryForm, setShowEntryForm] = useState(false);
-  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
-  const [viewMode, setViewMode] = useState<ViewMode>("dashboard");
-
-  const { entries, addEntry, updateEntry, deleteEntry } = useTimeEntries();
-  const handleViewChange = (mode: ViewMode) => {
-    setViewMode(mode);
-  };
-
-  const handleAddEntry = () => {
-    setEditingEntry(null);
-    setShowEntryForm(true);
-  };
-
-  const handleEditEntry = (entry: TimeEntry) => {
-    setEditingEntry(entry);
-    setShowEntryForm(true);
-  };
-
-  const handleDeleteEntry = (id: string) => {
-    deleteEntry(id);
-  };
-
-  const handleFormSubmit = (entry: TimeEntry) => {
-    if (editingEntry) {
-      updateEntry(editingEntry.id, entry);
-    } else {
-      addEntry(entry);
-    }
-    setShowEntryForm(false);
-    setEditingEntry(null);
-  };
-
-  const handleFormCancel = () => {
-    setShowEntryForm(false);
-    setEditingEntry(null);
-  };
-
+// React component to render the current view based on the viewMode
+export default function RenderCurrentView({
+  viewMode,
+  entries,
+  selectedDate,
+  handleEditEntry,
+  handleDeleteEntry,
+  handleAddEntry,
+  setViewMode,
+  setSelectedDate,
+}: RenderCurrentViewProps) {
+  // Switch statement to render the appropriate view based on the viewMode
   switch (viewMode) {
     case "dashboard":
       return (
@@ -136,6 +103,6 @@ export default function renderCurrentView() {
         />
       );
     default:
-      return null;
+      return null; // Return null if no valid viewMode is provided
   }
 }
