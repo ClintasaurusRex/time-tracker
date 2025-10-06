@@ -6,6 +6,7 @@ import { addDays, addWeeks, addMonths, addYears } from "../utils/dateUtils";
 // Components
 import EntryForm from "./EntryForm";
 import NavigationControls from "./NavigationControls";
+import RenderCurrentView from "./RenderCurrentView";
 
 // Views
 import DashboardOverview from "../views/DashboardOverview";
@@ -24,8 +25,6 @@ function Dashboard() {
   const [selectedDate, setSelectedDate] = useState(new Date());
   const [showEntryForm, setShowEntryForm] = useState(false);
   const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
-
-  // ...existing code...
 
   const handleViewChange = (mode: ViewMode) => {
     setViewMode(mode);
@@ -133,83 +132,6 @@ function Dashboard() {
     }
   };
 
-  const renderCurrentView = () => {
-    switch (viewMode) {
-      case "dashboard":
-        return (
-          <DashboardOverview
-            entries={entries}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-            onAddEntry={handleAddEntry}
-          />
-        );
-      case "daily":
-        return (
-          <DailyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-            onAddEntry={handleAddEntry}
-          />
-        );
-      case "weekly":
-        return (
-          <WeeklyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-          />
-        );
-      case "biweekly":
-        return (
-          <BiWeeklyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-          />
-        );
-      case "monthly":
-        return (
-          <MonthlyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-          />
-        );
-      case "yearly":
-        return (
-          <YearlyView
-            entries={entries}
-            selectedDate={selectedDate}
-            onAddEntry={handleAddEntry}
-            onNavigate={(mode, date) => {
-              setViewMode(mode);
-              setSelectedDate(date);
-            }}
-          />
-        );
-      case "custom":
-        return (
-          <CustomRangeView
-            entries={entries}
-            onEditEntry={handleEditEntry}
-            onDeleteEntry={handleDeleteEntry}
-            onAddEntry={handleAddEntry}
-          />
-        );
-      default:
-        return null;
-    }
-  };
-
   return (
     <div className="dashboard-container">
       {/* Vertical Navigation Bar */}
@@ -298,7 +220,18 @@ function Dashboard() {
         )}
 
         {/* Current View */}
-        <div className="view-container">{renderCurrentView()}</div>
+        <div className="view-container">
+          <RenderCurrentView
+            viewMode={viewMode}
+            entries={entries}
+            selectedDate={selectedDate}
+            handleEditEntry={handleEditEntry}
+            handleDeleteEntry={handleDeleteEntry}
+            handleAddEntry={handleAddEntry}
+            setViewMode={setViewMode}
+            setSelectedDate={setSelectedDate}
+          />
+        </div>
       </main>
 
       {/* Entry Form Modal */}
@@ -312,4 +245,5 @@ function Dashboard() {
     </div>
   );
 }
+
 export default Dashboard;
