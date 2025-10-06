@@ -67,9 +67,7 @@ function Dashboard() {
         break;
       case "weekly":
       case "biweekly":
-        setSelectedDate((prev) =>
-          addWeeks(prev, viewMode === "biweekly" ? -2 : -1)
-        );
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? -2 : -1));
         break;
       case "monthly":
         setSelectedDate((prev) => addMonths(prev, -1));
@@ -87,9 +85,7 @@ function Dashboard() {
         break;
       case "weekly":
       case "biweekly":
-        setSelectedDate((prev) =>
-          addWeeks(prev, viewMode === "biweekly" ? 2 : 1)
-        );
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? 2 : 1));
         break;
       case "monthly":
         setSelectedDate((prev) => addMonths(prev, 1));

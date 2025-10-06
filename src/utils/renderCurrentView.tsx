@@ -11,6 +11,7 @@ import BiWeeklyView from "../views/BiWeeklyView";
 
 import type { TimeEntry, ViewMode } from "../types";
 
+import { useTimeEntries } from "../hooks/useTimeEntries";
 
 interface RenderCurrentViewProps {
   viewMode: ViewMode;
@@ -23,8 +24,45 @@ interface RenderCurrentViewProps {
   setSelectedDate: (date: Date) => void;
 }
 
-export default const renderCurrentView = () => {
+export default function renderCurrentView() {
+  const [selectedDate, setSelectedDate] = useState(new Date());
+  const [showEntryForm, setShowEntryForm] = useState(false);
+  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
   const [viewMode, setViewMode] = useState<ViewMode>("dashboard");
+
+  const { entries, addEntry, updateEntry, deleteEntry } = useTimeEntries();
+  const handleViewChange = (mode: ViewMode) => {
+    setViewMode(mode);
+  };
+
+  const handleAddEntry = () => {
+    setEditingEntry(null);
+    setShowEntryForm(true);
+  };
+
+  const handleEditEntry = (entry: TimeEntry) => {
+    setEditingEntry(entry);
+    setShowEntryForm(true);
+  };
+
+  const handleDeleteEntry = (id: string) => {
+    deleteEntry(id);
+  };
+
+  const handleFormSubmit = (entry: TimeEntry) => {
+    if (editingEntry) {
+      updateEntry(editingEntry.id, entry);
+    } else {
+      addEntry(entry);
+    }
+    setShowEntryForm(false);
+    setEditingEntry(null);
+  };
+
+  const handleFormCancel = () => {
+    setShowEntryForm(false);
+    setEditingEntry(null);
+  };
 
   switch (viewMode) {
     case "dashboard":
@@ -100,4 +138,4 @@ export default const renderCurrentView = () => {
     default:
       return null;
   }
-};
+}
