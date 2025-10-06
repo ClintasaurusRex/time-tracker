@@ -1,78 +1,75 @@
+// Import necessary dependencies and utilities
 import { useState } from "react";
 import type { TimeEntry, ViewMode } from "../types";
 import { useTimeEntries } from "../hooks/useTimeEntries";
 import { addDays, addWeeks, addMonths, addYears } from "../utils/dateUtils";
 
-// Components
+// Import child components used in the Dashboard
 import EntryForm from "./EntryForm";
 import NavigationControls from "./NavigationControls";
 import RenderCurrentView from "./RenderCurrentView";
 
-// Views
-import DashboardOverview from "../views/DashboardOverview";
-import DailyView from "../views/DailyView";
-import WeeklyView from "../views/WeeklyView";
-import MonthlyView from "../views/MonthlyView";
-import YearlyView from "../views/YearlyView";
-import CustomRangeView from "../views/CustomRangeView";
-import BiWeeklyView from "../views/BiWeeklyView";
-
-import "./Dashboard.css";
+import "./Dashboard.css"; // Import styles for the Dashboard component
 
 function Dashboard() {
-  const { entries, addEntry, updateEntry, deleteEntry } = useTimeEntries();
-  const [viewMode, setViewMode] = useState<ViewMode>("dashboard");
-  const [selectedDate, setSelectedDate] = useState(new Date());
-  const [showEntryForm, setShowEntryForm] = useState(false);
-  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null);
+  // State management for the Dashboard
+  const { entries, addEntry, updateEntry, deleteEntry } = useTimeEntries(); // Manage time entries
+  const [viewMode, setViewMode] = useState<ViewMode>("dashboard"); // Current view mode
+  const [selectedDate, setSelectedDate] = useState(new Date()); // Currently selected date
+  const [showEntryForm, setShowEntryForm] = useState(false); // Controls visibility of the entry form modal
+  const [editingEntry, setEditingEntry] = useState<TimeEntry | null>(null); // Entry being edited
 
+  // Handlers for view mode changes
   const handleViewChange = (mode: ViewMode) => {
     setViewMode(mode);
   };
 
+  // Handlers for adding, editing, and deleting entries
   const handleAddEntry = () => {
-    setEditingEntry(null);
-    setShowEntryForm(true);
+    setEditingEntry(null); // Reset editing entry
+    setShowEntryForm(true); // Show the entry form modal
   };
 
   const handleEditEntry = (entry: TimeEntry) => {
-    setEditingEntry(entry);
-    setShowEntryForm(true);
+    setEditingEntry(entry); // Set the entry to be edited
+    setShowEntryForm(true); // Show the entry form modal
   };
 
   const handleDeleteEntry = (id: string) => {
-    deleteEntry(id);
+    deleteEntry(id); // Delete the entry by ID
   };
 
+  // Handlers for form submission and cancellation
   const handleFormSubmit = (entry: TimeEntry) => {
     if (editingEntry) {
-      updateEntry(editingEntry.id, entry);
+      updateEntry(editingEntry.id, entry); // Update the existing entry
     } else {
-      addEntry(entry);
+      addEntry(entry); // Add a new entry
     }
-    setShowEntryForm(false);
-    setEditingEntry(null);
+    setShowEntryForm(false); // Close the entry form modal
+    setEditingEntry(null); // Reset editing entry
   };
 
   const handleFormCancel = () => {
-    setShowEntryForm(false);
-    setEditingEntry(null);
+    setShowEntryForm(false); // Close the entry form modal
+    setEditingEntry(null); // Reset editing entry
   };
 
+  // Handlers for navigating between periods
   const handlePreviousPeriod = () => {
     switch (viewMode) {
       case "daily":
-        setSelectedDate((prev) => addDays(prev, -1));
+        setSelectedDate((prev) => addDays(prev, -1)); // Go to the previous day
         break;
       case "weekly":
       case "biweekly":
-        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? -2 : -1));
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? -2 : -1)); // Go to the previous week/bi-week
         break;
       case "monthly":
-        setSelectedDate((prev) => addMonths(prev, -1));
+        setSelectedDate((prev) => addMonths(prev, -1)); // Go to the previous month
         break;
       case "yearly":
-        setSelectedDate((prev) => addYears(prev, -1));
+        setSelectedDate((prev) => addYears(prev, -1)); // Go to the previous year
         break;
     }
   };
@@ -80,25 +77,26 @@ function Dashboard() {
   const handleNextPeriod = () => {
     switch (viewMode) {
       case "daily":
-        setSelectedDate((prev) => addDays(prev, 1));
+        setSelectedDate((prev) => addDays(prev, 1)); // Go to the next day
         break;
       case "weekly":
       case "biweekly":
-        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? 2 : 1));
+        setSelectedDate((prev) => addWeeks(prev, viewMode === "biweekly" ? 2 : 1)); // Go to the next week/bi-week
         break;
       case "monthly":
-        setSelectedDate((prev) => addMonths(prev, 1));
+        setSelectedDate((prev) => addMonths(prev, 1)); // Go to the next month
         break;
       case "yearly":
-        setSelectedDate((prev) => addYears(prev, 1));
+        setSelectedDate((prev) => addYears(prev, 1)); // Go to the next year
         break;
     }
   };
 
   const handleToday = () => {
-    setSelectedDate(new Date());
+    setSelectedDate(new Date()); // Reset to today's date
   };
 
+  // Get the text representation of the current period based on the view mode
   const getCurrentPeriodText = () => {
     switch (viewMode) {
       case "daily":
@@ -128,7 +126,7 @@ function Dashboard() {
       case "yearly":
         return selectedDate.getFullYear().toString();
       default:
-        return "Dashboard";
+        return "Dashboard"; // Default text for the dashboard view
     }
   };
 
@@ -137,6 +135,7 @@ function Dashboard() {
       {/* Vertical Navigation Bar */}
       <ul className="navbar">
         <img src="/logoEmblem.png" alt="Placeholder" className="nav-pic" />
+        {/* Navigation buttons for different views */}
         <button
           onClick={() => handleViewChange("dashboard")}
           className={`nav-btns ${viewMode === "dashboard" ? "active" : ""}`}
@@ -183,6 +182,7 @@ function Dashboard() {
         {/* This spacer will push the items below it to the bottom */}
         <div className="navbar-spacer"></div>
 
+        {/* Additional buttons for linking Google Calendar and settings */}
         <button
           onClick={() => {
             console.log("Link Google Cal button clicked");
@@ -204,7 +204,7 @@ function Dashboard() {
       {/* Main Content Area */}
       <main className="main-content">
         <header className="header">
-          <h1>{getCurrentPeriodText()}</h1>
+          <h1>{getCurrentPeriodText()}</h1> {/* Display the current period text */}
         </header>
 
         {/* Navigation Controls for non-dashboard views */}
@@ -246,4 +246,5 @@ function Dashboard() {
   );
 }
 
+// Export the Dashboard component for use in other parts of the application
 export default Dashboard;
