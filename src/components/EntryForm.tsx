@@ -10,9 +10,7 @@ interface EntryFormProps {
 }
 
 function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
-  const [date, setDate] = useState(
-    initialEntry?.date || new Date().toISOString().split("T")[0]
-  );
+  const [date, setDate] = useState(initialEntry?.date || new Date().toISOString().split("T")[0]);
   const [hours, setHours] = useState(initialEntry?.hours?.toString() || "");
   const [startTime, setStartTime] = useState(
     initialEntry?.startTime || new Date().toTimeString().slice(0, 5)
@@ -75,7 +73,6 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
       endTime,
       task,
     };
-    console.log("Submitting entry:", entry);
     onSubmit(entry);
   };
 
@@ -160,11 +157,7 @@ function EntryForm({ onSubmit, onCancel, initialEntry }: EntryFormProps) {
             <button type="submit" className="btn btn-primary">
               {initialEntry ? "Update Entry" : "Add Entry"}
             </button>
-            <button
-              type="button"
-              onClick={onCancel}
-              className="btn btn-secondary"
-            >
+            <button type="button" onClick={onCancel} className="btn btn-secondary">
               Cancel
             </button>
           </div>
