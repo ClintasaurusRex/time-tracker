@@ -10,6 +10,7 @@ import MonthlyView from "../views/MonthlyView";
 import YearlyView from "../views/YearlyView";
 import CustomRangeView from "../views/CustomRangeView";
 import BiWeeklyView from "../views/BiWeeklyView";
+import SettingsPage from "../views/SettingsPage";
 
 // Define the props for the RenderCurrentView component
 interface RenderCurrentViewProps {
@@ -113,6 +114,8 @@ const RenderCurrentView: React.FC<RenderCurrentViewProps> = ({
           onAddEntry={handleAddEntry}
         />
       );
+    case "settings":
+      return <SettingsPage />;
     default:
       // Return null if no valid viewMode is provided
       return null;

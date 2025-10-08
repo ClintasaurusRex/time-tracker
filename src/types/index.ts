@@ -14,7 +14,8 @@ export type ViewMode =
   | "biweekly"
   | "monthly"
   | "yearly"
-  | "custom";
+  | "custom"
+  | "settings"
 
 export interface DateRange {
   start: string;

@@ -193,9 +193,9 @@ function Dashboard() {
         </button>
         <button
           onClick={() => {
-            console.log("Settings button clicked");
+            handleViewChange("settings");
           }}
-          className="nav-btns"
+          className={`nav-btns ${viewMode === "settings" ? "active" : ""}`}
         >
           Settings
         </button>
